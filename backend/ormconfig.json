@@ -1,0 +1,12 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "david",
+    "password": "1234",
+    "database": "sercomgas",
+    "entities": ["src/entities/**/*.ts"],
+    "synchronize": true,
+    "logging": false
+  }
+  
