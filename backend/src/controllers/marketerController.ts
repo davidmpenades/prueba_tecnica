@@ -16,3 +16,20 @@ export const getMarketers = async (
     res.status(500).send({ error: 'Error al obtener las comercializadoras' });
   }
 };
+
+export const createMarketer = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+) => {
+  try {
+    const marketerRepository = AppDataSource.getRepository(Marketers);
+    const marketer = marketerRepository.create(
+      request.body as Partial<Marketers>
+    );
+
+    const result = await marketerRepository.save(marketer);
+    reply.status(201).send(result);
+  } catch (error) {
+    reply.status(500).send({ error: 'Error al crear la comercializadora' });
+  }
+};
