@@ -15,3 +15,18 @@ export const getClients = async (
     reply.status(500).send({ error: 'Error al obtener los clientes' });
   }
 };
+
+export const createClient = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+) => {
+  try {
+    const clientRepository = AppDataSource.getRepository(Clients);
+    const client = clientRepository.create(request.body as Partial<Clients>);
+
+    const result = await clientRepository.save(client);
+    reply.status(201).send(result);
+  } catch (error) {
+    reply.status(500).send({ error: 'Error al crear el cliente' });
+  }
+};
