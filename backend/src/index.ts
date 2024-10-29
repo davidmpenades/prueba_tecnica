@@ -1,12 +1,9 @@
-import 'reflect-metadata';
-import { createConnection } from 'typeorm';
+import { AppDataSource } from './db/config';
 
 const start = async () => {
   try {
-    await createConnection();
+    await AppDataSource.initialize();
     console.log('Conexión a la base de datos exitosa.');
-
-    process.exit(0);
   } catch (error) {
     console.error('Error al conectar con la base de datos:', error);
     process.exit(1);
