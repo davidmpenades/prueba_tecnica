@@ -1,6 +1,7 @@
 import Fastify from 'fastify';
 import 'reflect-metadata';
 import { AppDataSource } from './db/config';
+import { clientRoutes } from './routes/clientRoutes';
 import { marketerRoutes } from './routes/marketerRoutes';
 import { operationRoutes } from './routes/operationsRoutes';
 
@@ -13,6 +14,7 @@ const start = async () => {
 
     app.register(marketerRoutes);
     app.register(operationRoutes);
+    app.register(clientRoutes);
 
     await app.listen({ port: 3001 });
     app.log.info(`Server listening at http://localhost:3001`);
