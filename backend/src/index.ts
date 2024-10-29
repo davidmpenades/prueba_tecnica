@@ -12,7 +12,7 @@ const start = async () => {
     app.log.info('Connected to the database');
 
     app.register(marketerRoutes);
-    app.register(operationRoutes)
+    app.register(operationRoutes);
 
     await app.listen({ port: 3001 });
     app.log.info(`Server listening at http://localhost:3001`);
