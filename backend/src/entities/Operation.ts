@@ -1,13 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
   CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Marketers } from './Marketer';
 import { Clients } from './Client';
+import { Marketers } from './Marketer';
 
 @Entity()
 export class Operations {
@@ -21,9 +21,6 @@ export class Operations {
 
   @ManyToOne(() => Clients, (client) => client.operations, { eager: true })
   client!: Clients;
-
-  @Column()
-  client_id: number;
 
   @Column({ type: 'enum', enum: ['compra', 'venta'] })
   type: 'compra' | 'venta';
