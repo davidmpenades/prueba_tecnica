@@ -6,6 +6,7 @@ import Sidebar from './components/layout/sidebar';
 
 function App() {
   const Operation = React.lazy(() => import('./pages/operationsPage'));
+  const Client = React.lazy(() => import('./pages/clientsPage'));
 
   return (
     <div className='App'>
@@ -30,6 +31,7 @@ function App() {
             >
               <Routes>
                 <Route path='/' element={<Operation />} />
+                <Route path='/clients' element={<Client />} />
               </Routes>
             </Suspense>
           </div>
