@@ -1,8 +1,7 @@
-import React from 'react';
 import { Layout } from 'antd';
+import React from 'react';
 import logo from '../../assets/img/logo.png';
-import './header.css';
-import '../../styles/common.css'
+import '../../styles/common.css';
 
 const { Header: AntHeader } = Layout;
 
