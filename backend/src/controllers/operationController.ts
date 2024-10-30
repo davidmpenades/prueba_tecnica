@@ -3,6 +3,7 @@ import { AppDataSource } from '../db/config';
 import { Clients } from '../entities/Client';
 import { Marketers } from '../entities/Marketer';
 import { Operations } from '../entities/Operation';
+import { OperationRequest, OperationResponse } from '../types/globalTypes';
 
 export const getOperations = async (
   request: FastifyRequest,
@@ -11,15 +12,33 @@ export const getOperations = async (
   try {
     const operationRepository = AppDataSource.getRepository(Operations);
     const operations = await operationRepository.find();
-    res.send(operations);
+
+    const response: OperationResponse[] = operations.map((operation) => ({
+      id: operation.id,
+      type: operation.type,
+      amount: operation.amount,
+      price: operation.price,
+      marketer: {
+        id: operation.marketer.id,
+        name: operation.marketer.name,
+      },
+      client: {
+        id: operation.client.id,
+        name: operation.client.name,
+      },
+      created_at: operation.created_at,
+      updated_at: operation.updated_at,
+    }));
+
+    res.send(response);
   } catch (error) {
     res.status(500).send({ error: 'Error al obtener las operaciones' });
   }
 };
 
 export const createOperation = async (
-  request: FastifyRequest,
-  reply: FastifyReply
+  request: FastifyRequest<{ Body: OperationRequest }>,
+  res: FastifyReply
 ) => {
   try {
     const {
@@ -28,13 +47,7 @@ export const createOperation = async (
       price,
       marketer: marketerId,
       client: clientId,
-    } = request.body as {
-      type: 'compra' | 'venta';
-      amount: number;
-      price: number;
-      marketer: number;
-      client: number;
-    };
+    } = request.body;
 
     const marketer = await AppDataSource.getRepository(Marketers).findOneBy({
       id: marketerId,
@@ -44,24 +57,22 @@ export const createOperation = async (
     });
 
     if (!marketer || !client) {
-      return reply
-        .status(400)
-        .send({ error: 'Marketer o Client no encontrado' });
+      return res.status(400).send({ error: 'Marketer o Client no encontrado' });
     }
 
     const operation = new Operations();
-    operation.marketer = marketer;
-    operation.client = client;
     operation.type = type;
     operation.amount = amount;
     operation.price = price;
+    operation.marketer = marketer;
+    operation.client = client;
 
     const result = await AppDataSource.getRepository(Operations).save(
       operation
     );
-    reply.status(201).send(result);
+    res.status(201).send(result);
   } catch (error) {
     console.error(error);
-    reply.status(500).send({ error: 'Error al crear la operación' });
+    res.status(500).send({ error: 'Error al crear la operación' });
   }
 };
