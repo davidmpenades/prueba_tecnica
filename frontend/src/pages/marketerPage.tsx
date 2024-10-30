@@ -1,7 +1,7 @@
 import { Alert, Skeleton } from 'antd';
 import React from 'react';
 import DataTable from '../components/tables/dataTable';
-import { marketerColumns } from '../config/ColumnsConfig';
+import { marketerColumns } from '../components/tables/config/ColumnsConfig';
 import { useMarketers } from '../hooks/useMarketer';
 import { Marketer } from '../types/marketerTypes';
 

@@ -1,6 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
-import { Operation } from '../types/operationTypes';
-import { Client } from '../types/clientTypes';
+import { Operation } from '../../../types/operationTypes';
+import { Client } from '../../../types/clientTypes';
 
 const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate);
