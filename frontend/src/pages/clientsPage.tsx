@@ -1,7 +1,7 @@
 import { Alert, Skeleton } from 'antd';
 import React from 'react';
-import DataTable from '../components/tables/dataTable';
 import { clientColumns } from '../components/tables/config/ColumnsConfig';
+import DataTable from '../components/tables/dataTable';
 import { useClients } from '../hooks/useClients';
 import { Client } from '../types/clientTypes';
 
@@ -28,8 +28,16 @@ const ClientsPage: React.FC = () => {
   return (
     <div className='table'>
       <h1 className='title title-container'>Clientes</h1>
-      {clients && (
+      {clients && clients.length > 0 ? (
         <DataTable<Client> data={clients} columns={clientColumns} />
+      ) : (
+        <Alert
+          message='Información'
+          description='No se han encontrado clientes.'
+          type='info'
+          showIcon
+          style={{ textAlign: 'center', margin: '20px 0' }}
+        />
       )}
     </div>
   );

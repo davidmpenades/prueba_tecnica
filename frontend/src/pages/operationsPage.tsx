@@ -1,7 +1,7 @@
 import { Alert, Skeleton } from 'antd';
 import React from 'react';
-import DataTable from '../components/tables/dataTable';
 import { operationColumns } from '../components/tables/config/ColumnsConfig';
+import DataTable from '../components/tables/dataTable';
 import { useOperations } from '../hooks/useOperations';
 import { Operation } from '../types/operationTypes';
 
@@ -28,8 +28,16 @@ const OperationsPage: React.FC = () => {
   return (
     <div className='table'>
       <h1 className='title title-container'>Operaciones</h1>
-      {operations && (
+      {operations && operations.length > 0 ? (
         <DataTable<Operation> data={operations} columns={operationColumns} />
+      ) : (
+        <Alert
+          message='Información'
+          description='No se han encontrado clientes.'
+          type='info'
+          showIcon
+          style={{ textAlign: 'center', margin: '20px 0' }}
+        />
       )}
     </div>
   );
