@@ -1,13 +1,21 @@
 import { Table } from 'antd';
-import { tableProps } from '../../types/tableTypes';
 import '../../styles/tableStyles.css';
+import { tableProps } from '../../types/tableTypes';
 
 const DataTable = <T extends object>({
   data,
   columns,
   rowKey = 'id',
 }: tableProps<T>) => {
-  return <Table columns={columns} dataSource={data} rowKey={rowKey} className="custom-table"/>;
+  return (
+    <Table
+      columns={columns}
+      dataSource={data}
+      rowKey={rowKey}
+      pagination={{ pageSize: 10 }}
+      className='custom-table'
+    />
+  );
 };
 
 export default DataTable;
