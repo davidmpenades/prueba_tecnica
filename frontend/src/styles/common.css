@@ -88,6 +88,20 @@ html {
   font-weight: bold;
 }
 
+.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon {
+  margin-right: 10px;
+  font-size: 1.5em;
+}
+
+.nav-text {
+  font-size: 16px;
+}
+
 .content {
   flex: 1;
   margin-left: 250px;
@@ -95,8 +109,8 @@ html {
   overflow-y: auto;
 }
 
-.table{
-  padding : 20px;
+.table {
+  padding: 20px;
 }
 
 .title-container {
