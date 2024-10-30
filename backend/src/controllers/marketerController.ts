@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { AppDataSource } from '../db/config';
 import { Marketers } from '../entities/Marketer';
+import { MarketerRequest, MarketerResponse } from '../types/globalTypes';
 
 export const getMarketers = async (
   request: FastifyRequest,
@@ -10,7 +11,18 @@ export const getMarketers = async (
     const marketerRepository = AppDataSource.getRepository(Marketers);
 
     const marketers = await marketerRepository.find();
-    res.send(marketers);
+
+    const response: MarketerResponse[] = marketers.map((marketer) => ({
+      id: marketer.id,
+      name: marketer.name,
+      address: marketer.address,
+      email: marketer.email,
+      phone: marketer.phone,
+      created_at: marketer.created_at,
+      updated_at: marketer.updated_at,
+    }));
+
+    res.send(response);
   } catch (error) {
     console.error('Error:', error);
     res.status(500).send({ error: 'Error al obtener las comercializadoras' });
@@ -18,8 +30,8 @@ export const getMarketers = async (
 };
 
 export const createMarketer = async (
-  request: FastifyRequest,
-  reply: FastifyReply
+  request: FastifyRequest<{ Body: MarketerRequest }>,
+  res: FastifyReply
 ) => {
   try {
     const marketerRepository = AppDataSource.getRepository(Marketers);
@@ -28,8 +40,13 @@ export const createMarketer = async (
     );
 
     const result = await marketerRepository.save(marketer);
-    reply.status(201).send(result);
+
+    const response: MarketerResponse = {
+      ...result,
+    };
+
+    res.status(201).send(response);
   } catch (error) {
-    reply.status(500).send({ error: 'Error al crear la comercializadora' });
+    res.status(500).send({ error: 'Error al crear la comercializadora' });
   }
 };

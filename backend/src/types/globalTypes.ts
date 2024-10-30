@@ -43,3 +43,26 @@ export interface ClientResponse {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface MarketerRequest {
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  website?: string;
+  logo_url?: string;
+  description?: string;
+}
+
+export interface MarketerResponse {
+  id: number;
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
+  website?: string;
+  logo_url?: string;
+  description?: string;
+  created_at: Date;
+  updated_at: Date;
+}
