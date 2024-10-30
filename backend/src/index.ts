@@ -1,3 +1,4 @@
+import cors from '@fastify/cors';
 import Fastify from 'fastify';
 import 'reflect-metadata';
 import { AppDataSource } from './db/config';
@@ -11,6 +12,11 @@ const start = async () => {
   try {
     await AppDataSource.initialize();
     app.log.info('Connected to the database');
+
+    await app.register(cors, {
+      origin: process.env.CORS_ORIGIN,
+      methods: ['GET', 'POST'],
+    });
 
     app.register(marketerRoutes);
     app.register(operationRoutes);
