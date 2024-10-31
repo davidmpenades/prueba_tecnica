@@ -1,11 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { Operation } from '../types/operationTypes';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 const fetchOperations = async (): Promise<Operation[]> => {
   const response = await fetch(`${apiUrl}/operations`);
-  
+
   if (!response.ok) {
     throw new Error('Error al obtener las operaciones');
   }
@@ -21,7 +22,7 @@ export const useOperations = () => {
 
 export const useCreateOperation = () => {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (newOperation: Partial<Operation>) => {
       const response = await fetch(`${apiUrl}/operations`, {
@@ -29,7 +30,7 @@ export const useCreateOperation = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newOperation), 
+        body: JSON.stringify(newOperation),
       });
 
       if (!response.ok) {
@@ -39,6 +40,7 @@ export const useCreateOperation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['operations'] });
+      toast.success('Operación creada con éxito');
     },
   });
 };

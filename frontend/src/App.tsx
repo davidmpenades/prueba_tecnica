@@ -3,6 +3,7 @@ import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
+import { Toaster } from 'sonner';
 
 function App() {
   const Operation = React.lazy(() => import('./pages/operationsPage'));
@@ -30,6 +31,7 @@ function App() {
                 </div>
               }
             >
+              <Toaster position="top-left" richColors expand={true} closeButton={true}/>
               <Routes>
                 <Route path='/' element={<Operation />} />
                 <Route path='/clients' element={<Client />} />
