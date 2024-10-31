@@ -1,6 +1,6 @@
 import { Alert, Skeleton } from 'antd';
 import React from 'react';
-import { clientColumns } from '../components/tables/config/ColumnsConfig';
+import { clientColumns } from '../components/tables/config/columnsConfig';
 import DataTable from '../components/tables/dataTable';
 import { useClients } from '../hooks/useClients';
 import { Client } from '../types/clientTypes';

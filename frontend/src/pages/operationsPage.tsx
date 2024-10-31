@@ -1,6 +1,6 @@
 import { Alert, Skeleton } from 'antd';
 import React from 'react';
-import { operationColumns } from '../components/tables/config/ColumnsConfig';
+import { operationColumns } from '../components/tables/config/columnsConfig';
 import DataTable from '../components/tables/dataTable';
 import { useOperations } from '../hooks/useOperations';
 import { Operation } from '../types/operationTypes';
