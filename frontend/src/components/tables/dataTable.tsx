@@ -12,7 +12,7 @@ const DataTable = <T extends object>({
       columns={columns}
       dataSource={data}
       rowKey={rowKey}
-      pagination={{ pageSize: 10 }}
+      pagination={{ pageSize: 8 }}
       className='custom-table'
     />
   );

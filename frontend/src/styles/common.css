@@ -123,3 +123,25 @@ html {
   font-size: 24px;
   font-weight: bold;
 }
+
+.title-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  margin-left: auto;
+}
+
+.form-item-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+
+.button-spacing {
+  margin-right: 10px;
+}
