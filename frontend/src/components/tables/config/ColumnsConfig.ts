@@ -1,17 +1,7 @@
 import { ColumnsType } from 'antd/es/table';
-import { Operation } from '../../../types/operationTypes';
+import { Operation, OperationType } from '../../../types/operationTypes';
 import { Client } from '../../../types/clientTypes';
-
-const formatDate = (isoDate: string): string => {
-  const date = new Date(isoDate);
-  return date.toLocaleString('es-ES', {
-    hour: '2-digit',
-    minute: '2-digit',
-    day: '2-digit',
-    month: '2-digit',
-    year: '2-digit',
-  });
-};
+import { formatDate } from '../../../utils/utils';
 
 export const operationColumns: ColumnsType<Operation> = [
   {
@@ -23,14 +13,15 @@ export const operationColumns: ColumnsType<Operation> = [
     title: 'Tipo',
     dataIndex: 'type',
     key: 'type',
+    render: (type: OperationType) => type === OperationType.COMPRA ? 'Compra' : 'Venta',
   },
   {
-    title: 'Cantidad',
+    title: 'Cantidad - m3',
     dataIndex: 'amount',
     key: 'amount',
   },
   {
-    title: 'Precio',
+    title: 'Precio total - €',
     dataIndex: 'price',
     key: 'price',
   },
@@ -94,18 +85,6 @@ export const clientColumns: ColumnsType<Client> = [
     dataIndex: 'description',
     key: 'description',
   },
-  {
-    title: 'Fecha de Creación',
-    dataIndex: 'created_at',
-    key: 'created_at',
-    render: (created_at: string) => formatDate(created_at),
-  },
-  {
-    title: 'Fecha de Actualización',
-    dataIndex: 'updated_at',
-    key: 'updated_at',
-    render: (updated_at: string) => formatDate(updated_at),
-  },
 ];
 
 export const marketerColumns: ColumnsType<Client> = [
@@ -143,18 +122,6 @@ export const marketerColumns: ColumnsType<Client> = [
     title: 'Descripción',
     dataIndex: 'description',
     key: 'description',
-  },
-  {
-    title: 'Fecha de Creación',
-    dataIndex: 'created_at',
-    key: 'created_at',
-    render: (created_at: string) => formatDate(created_at),
-  },
-  {
-    title: 'Fecha de Actualización',
-    dataIndex: 'updated_at',
-    key: 'updated_at',
-    render: (updated_at: string) => formatDate(updated_at),
   },
 ];
 

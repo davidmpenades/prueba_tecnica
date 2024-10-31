@@ -33,7 +33,7 @@ const OperationsPage: React.FC = () => {
       ) : (
         <Alert
           message='Información'
-          description='No se han encontrado clientes.'
+          description='No se han encontrado operaciones.'
           type='info'
           showIcon
           style={{ textAlign: 'center', margin: '20px 0' }}
