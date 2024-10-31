@@ -1,6 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
-import { Operation, OperationType } from '../../../types/operationTypes';
 import { Client } from '../../../types/clientTypes';
+import { Operation, OperationType } from '../../../types/operationTypes';
 import { formatDate } from '../../../utils/utils';
 
 export const operationColumns: ColumnsType<Operation> = [
@@ -13,7 +13,8 @@ export const operationColumns: ColumnsType<Operation> = [
     title: 'Tipo',
     dataIndex: 'type',
     key: 'type',
-    render: (type: OperationType) => type === OperationType.COMPRA ? 'Compra' : 'Venta',
+    render: (type: OperationType) =>
+      type === OperationType.COMPRA ? 'Compra' : 'Venta',
   },
   {
     title: 'Cantidad - m3',
@@ -113,15 +114,4 @@ export const marketerColumns: ColumnsType<Client> = [
     dataIndex: 'phone',
     key: 'phone',
   },
-  {
-    title: 'Página Web',
-    dataIndex: 'website',
-    key: 'website',
-  },
-  {
-    title: 'Descripción',
-    dataIndex: 'description',
-    key: 'description',
-  },
 ];
-

@@ -1,4 +1,11 @@
-import { Form as AntForm, Button, Input, InputNumber, Modal, Select } from 'antd';
+import {
+  Form as AntForm,
+  Button,
+  Input,
+  InputNumber,
+  Modal,
+  Select,
+} from 'antd';
 import React from 'react';
 import { useClients } from '../../hooks/useClients';
 import { useMarketers } from '../../hooks/useMarketer';
@@ -27,7 +34,7 @@ const CreateEntityModal: React.FC<CreateEntityModalProps> = ({
 
   const handleSubmit = (values: any) => {
     onSubmit(values);
-    form.resetFields(); 
+    form.resetFields();
   };
 
   return (
@@ -39,11 +46,7 @@ const CreateEntityModal: React.FC<CreateEntityModalProps> = ({
       onCancel={onClose}
       footer={null}
     >
-      <AntForm
-        form={form}
-        layout='vertical'
-        onFinish={handleSubmit}
-      >
+      <AntForm form={form} layout='vertical' onFinish={handleSubmit}>
         {entityType === entityName.operation && (
           <>
             <AntForm.Item
@@ -216,7 +219,7 @@ const CreateEntityModal: React.FC<CreateEntityModalProps> = ({
               rules={[
                 { required: true, message: 'El teléfono es obligatorio' },
                 {
-                  pattern: /^[0-9]{9,12}$/,
+                  pattern: /^(\+?[0-9]{1,3}\s?)?[0-9]{6,12}$/,
                   message: 'Introduce un teléfono válido',
                 },
               ]}
@@ -243,8 +246,8 @@ const CreateEntityModal: React.FC<CreateEntityModalProps> = ({
           </>
         )}
 
-        <AntForm.Item className="form-item-buttons">
-          <Button onClick={onClose} className="button-spacing">
+        <AntForm.Item className='form-item-buttons'>
+          <Button onClick={onClose} className='button-spacing'>
             Cancelar
           </Button>
           <Button type='primary' htmlType='submit'>

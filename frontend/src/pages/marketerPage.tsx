@@ -1,12 +1,24 @@
-import { Alert, Skeleton } from 'antd';
-import React from 'react';
+import { Alert, Button, Skeleton } from 'antd';
+import React, { useState } from 'react';
+import ModalForm from '../components/modal/createModalForm';
 import { marketerColumns } from '../components/tables/config/columnsConfig';
 import DataTable from '../components/tables/dataTable';
-import { useMarketers } from '../hooks/useMarketer';
+import { useCreateMarketer, useMarketers } from '../hooks/useMarketer';
 import { Marketer } from '../types/marketerTypes';
+import { entityName } from '../types/modalType';
 
 const MarketerPage: React.FC = () => {
   const { data: marketers, isLoading, error } = useMarketers();
+  const createMarketer = useCreateMarketer();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleOpenModal = () => setIsModalVisible(true);
+  const handleCloseModal = () => setIsModalVisible(false);
+
+  const handleCreateMarketer = (values: Partial<Marketer>) => {
+    createMarketer.mutate(values);
+    handleCloseModal();
+  };
 
   if (isLoading) {
     return <Skeleton active />;
@@ -27,7 +39,12 @@ const MarketerPage: React.FC = () => {
 
   return (
     <div className='table'>
-      <h1 className='title title-container'>Comercializadoras</h1>
+      <div className='title-header'>
+        <h1 className='title title-container'>Comercializadoras</h1>
+        <Button type='primary' onClick={handleOpenModal}>
+          Nueva Operación
+        </Button>
+      </div>
       {marketers && marketers.length > 0 ? (
         <DataTable<Marketer> data={marketers} columns={marketerColumns} />
       ) : (
@@ -39,6 +56,13 @@ const MarketerPage: React.FC = () => {
           style={{ textAlign: 'center', margin: '20px 0' }}
         />
       )}
+
+      <ModalForm
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        onSubmit={handleCreateMarketer}
+        entityType={entityName.marketer}
+      />
     </div>
   );
 };
