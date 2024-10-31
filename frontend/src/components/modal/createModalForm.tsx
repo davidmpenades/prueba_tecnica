@@ -165,7 +165,7 @@ const CreateEntityModal: React.FC<CreateEntityModalProps> = ({
               rules={[
                 { required: true, message: 'El teléfono es obligatorio' },
                 {
-                  pattern: /^[0-9]{9,12}$/,
+                  pattern: /^(\+?[0-9]{1,3}\s?)?[0-9]{6,12}$/,
                   message: 'Introduce un teléfono válido',
                 },
               ]}
