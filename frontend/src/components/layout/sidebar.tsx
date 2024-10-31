@@ -1,3 +1,8 @@
+import {
+  FireOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import '../../styles/common.css';
@@ -11,7 +16,10 @@ const Sidebar: React.FC = () => {
             to='/'
             className={({ isActive }) => (isActive ? 'active-link' : '')}
           >
-            Operaciones
+            <div className='nav-item'>
+              <UnorderedListOutlined className='nav-icon' />
+              <span className='nav-text'>Operaciones</span>
+            </div>
           </NavLink>
         </li>
         <li>
@@ -19,7 +27,10 @@ const Sidebar: React.FC = () => {
             to='/marketers'
             className={({ isActive }) => (isActive ? 'active-link' : '')}
           >
-            Comercializadoras
+            <div className='nav-item'>
+              <FireOutlined className='nav-icon' />
+              <span className='nav-text'>Comercializadoras</span>
+            </div>
           </NavLink>
         </li>
         <li>
@@ -27,7 +38,10 @@ const Sidebar: React.FC = () => {
             to='/clients'
             className={({ isActive }) => (isActive ? 'active-link' : '')}
           >
-            Clientes
+            <div className='nav-item'>
+              <UserOutlined className='nav-icon' />
+              <span className='nav-text'>Clientes</span>
+            </div>
           </NavLink>
         </li>
       </ul>

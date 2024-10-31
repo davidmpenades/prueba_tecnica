@@ -19,7 +19,7 @@ html {
 
 .layout {
   display: flex;
-  height: 100vh;
+  height: calc(100% - 64px);
   margin-top: 64px;
 }
 
@@ -34,17 +34,17 @@ html {
   left: 0;
   width: 100%;
   z-index: 10;
-}
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
+  .logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
 
-.logo {
-  height: 50px;
-  margin: 10px 20px;
+    .logo {
+      height: 50px;
+      margin: 10px 20px;
+    }
+  }
 }
 
 .sidebar {
@@ -56,36 +56,50 @@ html {
   top: 64px;
   padding-top: 20px;
   overflow-y: auto;
+
+  ul {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+  }
+
+  li {
+    margin: 15px 0;
+    font-size: 16px;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-text-primary);
+    padding: 10px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    &.active-link {
+      background-color: var(--color-active-link);
+      color: var(--color-text-primary);
+      font-weight: bold;
+    }
+  }
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 20px;
-  margin: 0;
-}
+.nav-item {
+  display: flex;
+  align-items: center;
 
-.sidebar li {
-  margin: 15px 0;
-  font-size: 16px;
-}
+  .nav-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+  }
 
-.sidebar a {
-  text-decoration: none;
-  color: var(--color-text-primary);
-  padding: 10px;
-  display: block;
-  border-radius: 4px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.sidebar a:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.sidebar a.active-link {
-  background-color: var(--color-active-link);
-  color: var(--color-text-primary);
-  font-weight: bold;
+  .nav-text {
+    font-size: 16px;
+  }
 }
 
 .content {
@@ -93,19 +107,40 @@ html {
   margin-left: 250px;
   padding: 20px;
   overflow-y: auto;
+
+  .table {
+    padding: 20px;
+
+    .title-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+  }
 }
 
-.table{
-  padding : 20px;
-}
-
-.title-container {
+.title-header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .create-button {
+    margin-left: auto;
+  }
 }
 
-.title {
-  font-size: 24px;
-  font-weight: bold;
+.form-item-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+
+  .button-spacing {
+    margin-right: 10px;
+  }
 }

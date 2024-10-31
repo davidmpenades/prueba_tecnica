@@ -1,6 +1,6 @@
 export interface Operation {
   id: number;
-  type: 'compra' | 'venta';
+  type: OperationType;
   amount: number;
   price: number;
   marketer: {
@@ -13,4 +13,9 @@ export interface Operation {
   };
   created_at: string;
   updated_at: string;
+}
+
+export enum OperationType {
+  COMPRA = 'compra',
+  VENTA = 'venta',
 }

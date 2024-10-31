@@ -1,12 +1,25 @@
-import { Alert, Skeleton } from 'antd';
-import React from 'react';
+import { Alert, Button, Skeleton } from 'antd';
+import React, { useState } from 'react';
+import ModalForm from '../components/modal/createModalForm';
+import { clientColumns } from '../components/tables/config/columnsConfig';
 import DataTable from '../components/tables/dataTable';
-import { clientColumns } from '../components/tables/config/ColumnsConfig';
-import { useClients } from '../hooks/useClients';
+import { useClients, useCreateClient } from '../hooks/useClients';
 import { Client } from '../types/clientTypes';
+import { entityName } from '../types/modalType';
+import { PlusOutlined } from '@ant-design/icons';
 
 const ClientsPage: React.FC = () => {
   const { data: clients, isLoading, error } = useClients();
+  const createClient = useCreateClient();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handleOpenModal = () => setIsModalVisible(true);
+  const handleCloseModal = () => setIsModalVisible(false);
+
+  const handleCreateClient = (values: Partial<Client>) => {
+    createClient.mutate(values);
+    handleCloseModal();
+  };
 
   if (isLoading) {
     return <Skeleton active />;
@@ -27,10 +40,30 @@ const ClientsPage: React.FC = () => {
 
   return (
     <div className='table'>
-      <h1 className='title title-container'>Clientes</h1>
-      {clients && (
+      <div className='title-header'>
+        <h1 className='title title-container'>Clientes</h1>
+        <Button type='primary' onClick={handleOpenModal} icon={<PlusOutlined />}>
+          Nueva Operación
+        </Button>
+      </div>
+      {clients && clients.length > 0 ? (
         <DataTable<Client> data={clients} columns={clientColumns} />
+      ) : (
+        <Alert
+          message='Información'
+          description='No se han encontrado clientes.'
+          type='info'
+          showIcon
+          style={{ textAlign: 'center', margin: '20px 0' }}
+        />
       )}
+
+      <ModalForm
+        visible={isModalVisible}
+        onClose={handleCloseModal}
+        onSubmit={handleCreateClient}
+        entityType={entityName.client}
+      />
     </div>
   );
 };
