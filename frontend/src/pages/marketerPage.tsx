@@ -6,6 +6,7 @@ import DataTable from '../components/tables/dataTable';
 import { useCreateMarketer, useMarketers } from '../hooks/useMarketer';
 import { Marketer } from '../types/marketerTypes';
 import { entityName } from '../types/modalType';
+import { PlusOutlined } from '@ant-design/icons';
 
 const MarketerPage: React.FC = () => {
   const { data: marketers, isLoading, error } = useMarketers();
@@ -41,7 +42,7 @@ const MarketerPage: React.FC = () => {
     <div className='table'>
       <div className='title-header'>
         <h1 className='title title-container'>Comercializadoras</h1>
-        <Button type='primary' onClick={handleOpenModal}>
+        <Button type='primary' onClick={handleOpenModal} icon={<PlusOutlined />}>
           Nueva Operación
         </Button>
       </div>

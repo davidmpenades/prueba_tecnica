@@ -6,6 +6,7 @@ import DataTable from '../components/tables/dataTable';
 import { useClients, useCreateClient } from '../hooks/useClients';
 import { Client } from '../types/clientTypes';
 import { entityName } from '../types/modalType';
+import { PlusOutlined } from '@ant-design/icons';
 
 const ClientsPage: React.FC = () => {
   const { data: clients, isLoading, error } = useClients();
@@ -41,7 +42,7 @@ const ClientsPage: React.FC = () => {
     <div className='table'>
       <div className='title-header'>
         <h1 className='title title-container'>Clientes</h1>
-        <Button type='primary' onClick={handleOpenModal}>
+        <Button type='primary' onClick={handleOpenModal} icon={<PlusOutlined />}>
           Nueva Operación
         </Button>
       </div>

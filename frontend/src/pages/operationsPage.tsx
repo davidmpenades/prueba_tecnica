@@ -6,6 +6,7 @@ import DataTable from '../components/tables/dataTable';
 import { useCreateOperation, useOperations } from '../hooks/useOperations';
 import { Operation } from '../types/operationTypes';
 import { entityName } from '../types/modalType';
+import { PlusOutlined } from '@ant-design/icons';
 
 const OperationsPage: React.FC = () => {
   const { data: operations, isLoading, error } = useOperations();
@@ -42,7 +43,7 @@ const OperationsPage: React.FC = () => {
     <div className='table'>
       <div className='title-header'>
         <h1 className='title title-container'>Operaciones</h1>
-        <Button type='primary' onClick={handleOpenModal}>
+        <Button type='primary' onClick={handleOpenModal} icon={<PlusOutlined />}>
           Nueva Operación
         </Button>
       </div>

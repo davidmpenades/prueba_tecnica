@@ -1,9 +1,8 @@
-import { Spin } from 'antd';
 import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Toaster } from 'sonner';
 import Header from './components/layout/header';
 import Sidebar from './components/layout/sidebar';
-import { Toaster } from 'sonner';
 
 function App() {
   const Operation = React.lazy(() => import('./pages/operationsPage'));
@@ -17,21 +16,13 @@ function App() {
         <div className='layout'>
           <Sidebar />
           <div className='content'>
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100%',
-                  }}
-                >
-                  <Spin size='large' />
-                </div>
-              }
-            >
-              <Toaster position="top-left" richColors expand={true} closeButton={true}/>
+            <Suspense>
+              <Toaster
+                position='top-left'
+                richColors
+                expand={true}
+                closeButton={true}
+              />
               <Routes>
                 <Route path='/' element={<Operation />} />
                 <Route path='/clients' element={<Client />} />
