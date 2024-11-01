@@ -30,10 +30,18 @@ export const getMarketers = async (
 };
 
 export const createMarketer = async (
-  request: FastifyRequest<{ Body: MarketerRequest }>,
+  request: FastifyRequest<{ Body: { ids: number[] } }>,
   res: FastifyReply
 ) => {
   try {
+    const { ids } = request.body;
+
+    if (!ids || ids.length === 0) {
+      return res
+        .status(400)
+        .send({ error: 'No se proporcionaron IDs para eliminar' });
+    }
+
     const marketerRepository = AppDataSource.getRepository(Marketers);
     const marketer = marketerRepository.create(
       request.body as Partial<Marketers>
@@ -48,5 +56,28 @@ export const createMarketer = async (
     res.status(201).send(response);
   } catch (error) {
     res.status(500).send({ error: 'Error al crear la comercializadora' });
+  }
+};
+
+export const deleteMarketers = async (
+  request: FastifyRequest<{ Body: { ids: number[] } }>,
+  res: FastifyReply
+) => {
+  try {
+    const { ids } = request.body;
+
+    if (!ids || ids.length === 0) {
+      return res
+        .status(400)
+        .send({ error: 'No se proporcionaron IDs para eliminar' });
+    }
+
+    const marketerRepository = AppDataSource.getRepository(Marketers);
+
+    await marketerRepository.delete(ids);
+
+    res.send({ message: 'Comercializadoras eliminadas' });
+  } catch (error) {
+    res.status(500).send({ error: 'Error al eliminar las comercializadoras' });
   }
 };
