@@ -1,17 +1,23 @@
-import { Alert, Button, Skeleton } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Alert, Button, Skeleton, Table } from 'antd';
 import React, { useState } from 'react';
 import ModalForm from '../components/modal/createModalForm';
 import { operationColumns } from '../components/tables/config/columnsConfig';
-import DataTable from '../components/tables/dataTable';
-import { useCreateOperation, useOperations } from '../hooks/useOperations';
-import { Operation } from '../types/operationTypes';
+import {
+  useCreateOperation,
+  useDeleteOperations,
+  useOperations,
+} from '../hooks/useOperations';
 import { entityName } from '../types/modalType';
-import { PlusOutlined } from '@ant-design/icons';
+import { Operation } from '../types/operationTypes';
+import { toast } from 'sonner';
 
 const OperationsPage: React.FC = () => {
   const { data: operations, isLoading, error } = useOperations();
   const createOperation = useCreateOperation();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<number[]>([]);
+  const deleteOperation = useDeleteOperations();
 
   const handleOpenModal = () => setIsModalVisible(true);
   const handleCloseModal = () => setIsModalVisible(false);
@@ -19,6 +25,20 @@ const OperationsPage: React.FC = () => {
   const handleCreateOperation = (values: Partial<Operation>) => {
     createOperation.mutate(values);
     handleCloseModal();
+  };
+
+  const handleDeleteSelected = () => {
+    if(selectedRowKeys.length === 0) {
+      toast.info('Selecciona al menos una operación');
+    }
+    deleteOperation.mutate(selectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (selectedKeys: React.Key[]) => {
+      setSelectedRowKeys(selectedKeys as number[]);
+    },
   };
 
   if (isLoading) {
@@ -32,7 +52,6 @@ const OperationsPage: React.FC = () => {
           message='Error'
           description='Error al cargar las operaciones'
           type='error'
-
           showIcon
         />
       </div>
@@ -43,12 +62,32 @@ const OperationsPage: React.FC = () => {
     <div className='table'>
       <div className='title-header'>
         <h1 className='title title-container'>Operaciones</h1>
-        <Button type='primary' onClick={handleOpenModal} icon={<PlusOutlined />}>
-          Nueva Operación
-        </Button>
+        <div>
+          <Button
+            type='primary'
+            onClick={handleOpenModal}
+            icon={<PlusOutlined />}
+            style={{ marginRight: '10px' }}
+          >
+            Nueva Operación
+          </Button>
+          <Button
+            type='primary'
+            danger
+            onClick={handleDeleteSelected}
+            style={{ marginLeft: '10px' }}
+          >
+            Eliminar Seleccionados
+          </Button>
+        </div>
       </div>
       {operations && operations.length > 0 ? (
-        <DataTable<Operation> data={operations} columns={operationColumns} />
+        <Table
+          rowSelection={rowSelection}
+          columns={operationColumns}
+          dataSource={operations}
+          rowKey='id'
+        />
       ) : (
         <Alert
           message='Información'

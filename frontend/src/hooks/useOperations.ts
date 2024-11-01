@@ -44,3 +44,28 @@ export const useCreateOperation = () => {
     },
   });
 };
+
+export const useDeleteOperations = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (ids: number[]) => {
+      const response = await fetch(`${apiUrl}/operations`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ids }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al eliminar las operaciones');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['operations'] });
+      toast.success('Operaciones eliminadas con éxito');
+    },
+  });
+};

@@ -18,7 +18,7 @@ function App() {
           <div className='content'>
             <Suspense>
               <Toaster
-                position='top-left'
+                position='top-center'
                 richColors
                 expand={true}
                 closeButton={true}
