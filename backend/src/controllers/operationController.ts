@@ -76,3 +76,27 @@ export const createOperation = async (
     res.status(500).send({ error: 'Error al crear la operación' });
   }
 };
+
+export const deleteOperations = async (
+  request: FastifyRequest<{ Body: { ids: number[] } }>,
+  res: FastifyReply
+) => {
+  try {
+    const { ids } = request.body;
+
+    if (!ids || ids.length === 0) {
+      return res
+        .status(400)
+        .send({ error: 'No se proporcionaron IDs para eliminar' });
+    }
+
+    const operationRepository = AppDataSource.getRepository(Operations);
+
+    await operationRepository.delete(ids);
+
+    res.send({ message: 'Operaciones eliminadas' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error al eliminar las operaciones' });
+  }
+};

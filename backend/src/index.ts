@@ -15,7 +15,7 @@ const start = async () => {
 
     await app.register(cors, {
       origin: process.env.CORS_ORIGIN,
-      methods: ['GET', 'POST'],
+      methods: ['GET', 'POST', 'DELETE'],
     });
 
     app.register(marketerRoutes);
