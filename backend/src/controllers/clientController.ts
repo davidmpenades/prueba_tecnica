@@ -49,3 +49,27 @@ export const createClient = async (
     res.status(500).send({ error: 'Error al crear el cliente' });
   }
 };
+
+export const deleteClients = async (
+  request: FastifyRequest<{ Body: { ids: number[] } }>,
+  res: FastifyReply
+) => {
+  try {
+    const { ids } = request.body;
+
+    if (!ids || ids.length === 0) {
+      return res
+        .status(400)
+        .send({ error: 'No se proporcionaron IDs para eliminar' });
+    }
+
+    const clientRepository = AppDataSource.getRepository(Clients);
+
+    await clientRepository.delete(ids);
+
+    res.send({ message: 'Clientes eliminados' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: 'Error al eliminar los clientes' });
+  }
+};
